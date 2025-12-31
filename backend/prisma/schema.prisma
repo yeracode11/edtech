@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String
+  firstName     String?
+  lastName      String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  refreshTokens RefreshToken[]
+  enrollments   Enrollment[]
+  progress      UserProgress[]
+  testResults   TestResult[]
+  payments      Payment[]
+  
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("refresh_tokens")
+}
+
+model Course {
+  id               String   @id @default(uuid())
+  title            String
+  description      String?
+  thumbnail        String?
+  price            Float    // Цена наличными
+  priceInstallment Float?   // Цена в рассрочку
+  isPublished      Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  lessons     Lesson[]
+  enrollments Enrollment[]
+  payments    Payment[]
+  
+  @@map("courses")
+}
+
+model Lesson {
+  id          String   @id @default(uuid())
+  courseId    String
+  title       String
+  description String?
+  content     String?  @db.Text // Текстовое содержание урока
+  videoUrl    String?  // URL видео
+  order       Int
+  duration    Int?     // Длительность в минутах
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  videoLesson  VideoLesson?
+  test         Test?
+  progress     UserProgress[]
+  
+  @@map("lessons")
+}
+
+model VideoLesson {
+  id           String   @id @default(uuid())
+  lessonId     String   @unique
+  gcsPath      String
+  playlistPath String
+  duration     Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  @@map("video_lessons")
+}
+
+model Test {
+  id               String   @id @default(uuid())
+  lessonId         String   @unique
+  title            String
+  passingScore     Int      @default(70)
+  isRequired       Boolean  @default(false)
+  blocksNextLesson Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  lesson    Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions Question[]
+  results   TestResult[]
+  
+  @@map("tests")
+}
+
+model Question {
+  id        String   @id @default(uuid())
+  testId    String
+  text      String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  test    Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  answers Answer[]
+  
+  @@map("questions")
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  questionId String
+  text       String
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  
+  @@map("answers")
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  expiresAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model UserProgress {
+  id           String   @id @default(uuid())
+  userId       String
+  lessonId     String
+  isCompleted  Boolean  @default(false)
+  watchedTime  Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, lessonId])
+  @@map("user_progress")
+}
+
+model TestResult {
+  id        String   @id @default(uuid())
+  userId    String
+  testId    String
+  score     Int
+  isPassed  Boolean
+  answers   Json
+  createdAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test Test @relation(fields: [testId], references: [id], onDelete: Cascade)
+  
+  @@map("test_results")
+}
+
+model Payment {
+  id              String        @id @default(uuid())
+  userId          String
+  courseId        String
+  amount          Float
+  currency        String        @default("KZT")
+  status          PaymentStatus @default(PENDING)
+  paymentSystem   String
+  transactionId   String?       @unique
+  webhookData     Json?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
+  @@map("payments")
+}
+
+
+
