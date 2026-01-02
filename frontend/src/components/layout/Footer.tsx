@@ -73,11 +73,11 @@ export function Footer() {
             <h3 className="font-semibold mb-4">{t.footer.contacts}</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
-                <span>📧</span>
+                <span>📷</span>
                 <div>
-                  <div className="font-medium text-foreground">{t.footer.email}:</div>
-                  <a href="mailto:info@japjaryq.kz" className="hover:text-primary transition-colors">
-                    info@japjaryq.kz
+                  <div className="font-medium text-foreground">{t.footer.instagram}:</div>
+                  <a href="https://www.instagram.com/japjaryq.kz/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                    @japjaryq.kz
                   </a>
                 </div>
               </li>
@@ -85,8 +85,8 @@ export function Footer() {
                 <span>📱</span>
                 <div>
                   <div className="font-medium text-foreground">{t.footer.phone}:</div>
-                  <a href="tel:+77771234567" className="hover:text-primary transition-colors">
-                    +7 (777) 123-45-67
+                  <a href="tel:+77784474750" className="hover:text-primary transition-colors">
+                  +7 778 447 4750
                   </a>
                 </div>
               </li>

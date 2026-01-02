@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 export const metadata: Metadata = {
   title: 'JapJaryq Academy - Онлайн-школа электриков | Курсы с нуля',
   description: 'Станьте профессиональным электриком! Практические онлайн-курсы, HD видеоуроки, реальные кейсы. Помощь в трудоустройстве. Сертификат. Первый урок бесплатно!',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({

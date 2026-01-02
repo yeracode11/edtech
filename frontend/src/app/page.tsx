@@ -15,7 +15,7 @@ export default function HomePage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-blue-600/10 via-primary/10 to-yellow-500/10">
+        <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-orange-600/10 via-primary/10 to-yellow-500/10">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
               <div>
@@ -106,7 +106,7 @@ export default function HomePage() {
                 <div className="text-xs sm:text-sm text-primary-foreground/80">{t.stats.students}</div>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">15+</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">3+</div>
                 <div className="text-xs sm:text-sm text-primary-foreground/80">{t.stats.courses}</div>
               </div>
               <div>
@@ -132,7 +132,7 @@ export default function HomePage() {
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               <div className="bg-card p-6 sm:p-6 sm:p-8 rounded-xl border hover:shadow-lg transition-shadow">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-orange-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-4 sm:mb-6">
                   <span className="text-2xl sm:text-2xl sm:text-3xl">🎓</span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{t.benefits.practice.title}</h3>
@@ -190,7 +190,7 @@ export default function HomePage() {
               <div className="bg-card p-6 sm:p-8 rounded-xl border">
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold mb-2">{t.curriculum.module1.title}</h3>
+                    <h3 className="text-2xl font-bold mb-2 whitespace-pre-line">{t.curriculum.module1.title}</h3>
                     <div className="flex gap-4 text-sm text-muted-foreground">
                       <span>📚 {t.curriculum.module1.lessons}</span>
                       <span>⏱️ {t.curriculum.module1.duration}</span>
@@ -210,7 +210,7 @@ export default function HomePage() {
               <div className="bg-card p-6 sm:p-8 rounded-xl border">
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold mb-2">{t.curriculum.module2.title}</h3>
+                    <h3 className="text-2xl font-bold mb-2 whitespace-pre-line">{t.curriculum.module2.title}</h3>
                     <div className="flex gap-4 text-sm text-muted-foreground">
                       <span>📚 {t.curriculum.module2.lessons}</span>
                       <span>⏱️ {t.curriculum.module2.duration}</span>
@@ -230,7 +230,7 @@ export default function HomePage() {
               <div className="bg-card p-6 sm:p-8 rounded-xl border">
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold mb-2">{t.curriculum.module3.title}</h3>
+                    <h3 className="text-2xl font-bold mb-2 whitespace-pre-line">{t.curriculum.module3.title}</h3>
                     <div className="flex gap-4 text-sm text-muted-foreground">
                       <span>📚 {t.curriculum.module3.lessons}</span>
                       <span>⏱️ {t.curriculum.module3.duration}</span>
@@ -250,7 +250,7 @@ export default function HomePage() {
               <div className="bg-card p-6 sm:p-8 rounded-xl border">
                 <div className="flex items-start justify-between mb-4 sm:mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold mb-2">{t.curriculum.module4.title}</h3>
+                    <h3 className="text-2xl font-bold mb-2 whitespace-pre-line">{t.curriculum.module4.title}</h3>
                     <div className="flex gap-4 text-sm text-muted-foreground">
                       <span>📚 {t.curriculum.module4.lessons}</span>
                       <span>⏱️ {t.curriculum.module4.duration}</span>
@@ -265,6 +265,163 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              <div className="bg-card p-6 sm:p-8 rounded-xl border">
+                <div className="flex items-start justify-between mb-4 sm:mb-6">
+                  <div>
+                    <h3 className="text-2xl font-bold mb-2 whitespace-pre-line">{t.curriculum.module5.title}</h3>
+                    <div className="flex gap-4 text-sm text-muted-foreground">
+                      <span>📚 {t.curriculum.module5.lessons}</span>
+                      <span>⏱️ {t.curriculum.module5.duration}</span>
+                    </div>
+                  </div>
+                </div>
+                <ul className="space-y-3">
+                  {t.curriculum.module5.topics.map((topic, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-primary mt-1">▸</span>
+                      <span>{topic}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Summary Block */}
+              <div className="bg-gradient-to-br from-primary/10 to-yellow-500/10 border-2 border-primary rounded-xl p-6 sm:p-8 col-span-full">
+                <div className="text-center">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">{t.curriculum.summary.title}</h3>
+                  <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                    {t.curriculum.summary.modules.map((module, index) => (
+                      <div key={index} className="bg-card/80 p-4 rounded-lg border">
+                        <div className="flex items-center gap-2">
+                          <span className="text-primary text-xl sm:text-2xl">✓</span>
+                          <span className="font-semibold text-sm sm:text-base">{module}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground">{t.curriculum.summary.conclusion}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <section className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-br from-orange-50/50 to-yellow-50/50 dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">{t.pricing.title}</h2>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground px-4">{t.pricing.subtitle}</p>
+            </div>
+            
+            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              {/* Premium Package */}
+              <div className="bg-card border-2 border-primary rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col">
+                <div className="mb-6 flex-grow">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-4 text-primary">{t.pricing.premium.name}</h3>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">{t.pricing.premium.priceFull}</div>
+                    <div className="text-sm text-muted-foreground">{t.pricing.premium.priceWithout}</div>
+                  </div>
+                  <div className="font-semibold mb-3">{t.pricing.premium.includes}</div>
+                  <ul className="space-y-2 mb-6">
+                    {t.pricing.premium.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm">
+                        <span className="text-primary mt-1">✓</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="border-t pt-4 mt-auto">
+                  <div className="font-semibold mb-3">{t.pricing.premium.lessonsTitle}</div>
+                  <ul className="space-y-1.5 text-xs sm:text-sm mb-6">
+                    {t.pricing.premium.lessons.map((lesson, index) => (
+                      <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                        <span className="text-primary mt-1 text-xs">▸</span>
+                        <span>{lesson}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/auth/register" className="block">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white" size="lg">
+                      {t.pricing.premium.buyButton}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Promo Package */}
+              <div className="bg-card border-2 border-orange-300 rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col">
+                <div className="mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-4 text-orange-600">{t.pricing.promo.name}</h3>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-lg sm:text-xl font-bold text-foreground">{t.pricing.promo.priceCash}</div>
+                    <div className="text-lg sm:text-xl font-bold text-foreground">{t.pricing.promo.priceInstallment}</div>
+                    <div className="text-sm text-muted-foreground">{t.pricing.promo.priceDiploma}</div>
+                  </div>
+                  <div className="font-semibold mb-3">{t.pricing.promo.includes}</div>
+                  <ul className="space-y-2 mb-6">
+                    {t.pricing.promo.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm">
+                        <span className="text-orange-600 mt-1">✓</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="border-t pt-4 mt-auto">
+                  <div className="font-semibold mb-2">{t.pricing.promo.lessonsTitle}</div>
+                  <div className="text-xs text-muted-foreground mb-3 italic">{t.pricing.promo.lessonsNote}</div>
+                  <ul className="space-y-1.5 text-xs sm:text-sm mb-6">
+                    {t.pricing.promo.lessons.map((lesson, index) => (
+                      <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                        <span className="text-orange-600 mt-1 text-xs">▸</span>
+                        <span>{lesson}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/auth/register" className="block">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white" size="lg">
+                      {t.pricing.promo.buyButton}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Econom Package */}
+              <div className="bg-card border-2 border-gray-300 rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col">
+                <div className="mb-6">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-4">{t.pricing.econom.name}</h3>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-lg sm:text-xl font-bold text-foreground">{t.pricing.econom.priceCash}</div>
+                    <div className="text-lg sm:text-xl font-bold text-foreground">{t.pricing.econom.priceInstallment}</div>
+                  </div>
+                  <div className="font-semibold mb-3 text-red-600">{t.pricing.econom.notIncludes}</div>
+                  <ul className="space-y-1.5 mb-6 text-sm">
+                    {t.pricing.econom.notIncludesList.map((item, index) => (
+                      <li key={index} className="text-muted-foreground">{item}</li>
+                    ))}
+                  </ul>
+                  <div className="font-semibold mb-3">{t.pricing.econom.includes}</div>
+                </div>
+                <div className="border-t pt-4 mt-auto">
+                  <ul className="space-y-1.5 text-xs sm:text-sm mb-6">
+                    {t.pricing.econom.lessons.map((lesson, index) => (
+                      <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                        <span className="text-primary mt-1 text-xs">▸</span>
+                        <span>{lesson}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/auth/register" className="block">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white" size="lg">
+                      {t.pricing.econom.buyButton}
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
