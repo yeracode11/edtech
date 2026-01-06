@@ -1,13 +1,20 @@
 'use client';
 
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAuthStore } from '@/stores/authStore'
 
 export default function HomePage() {
   const { t } = useLanguage();
+  const { isAuthenticated, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,11 +41,13 @@ export default function HomePage() {
                       {t.hero.cta}
                     </Button>
                   </Link>
-                  <Link href="/auth/register" className="w-full sm:w-auto">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8">
-                      {t.common.register}
-                    </Button>
-                  </Link>
+                  {!isAuthenticated && (
+                    <Link href="/auth/register" className="w-full sm:w-auto">
+                      <Button size="lg" variant="outline" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8">
+                        {t.common.register}
+                      </Button>
+                    </Link>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-4 sm:gap-8 text-xs sm:text-sm text-muted-foreground">
                   <div>

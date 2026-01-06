@@ -53,11 +53,12 @@ export class LessonController {
   async updateLesson(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { title, description, order, isPublished, content, videoUrl, duration } = req.body;
+      const { title, description, type, order, isPublished, content, videoUrl, duration } = req.body;
 
       const lesson = await lessonService.updateLesson(id, {
         title,
         description,
+        type,
         order,
         isPublished,
         content,

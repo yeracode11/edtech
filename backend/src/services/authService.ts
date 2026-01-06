@@ -60,6 +60,11 @@ export class AuthService {
       throw new Error('Неверный email или пароль');
     }
 
+    // Удаляем старые refresh токены пользователя
+    await prisma.refreshToken.deleteMany({
+      where: { userId: user.id },
+    });
+
     const accessToken = generateAccessToken({
       userId: user.id,
       email: user.email,
@@ -87,14 +92,36 @@ export class AuthService {
   }
 
   async refresh(refreshToken: string) {
-    const payload = verifyRefreshToken(refreshToken);
+    if (!refreshToken) {
+      throw new Error('Refresh token не найден');
+    }
+
+    let payload;
+    try {
+      payload = verifyRefreshToken(refreshToken);
+    } catch (error) {
+      // Если токен невалиден, удаляем его из базы
+      await prisma.refreshToken.deleteMany({
+        where: { token: refreshToken },
+      });
+      throw new Error('Невалидный refresh token');
+    }
 
     const storedToken = await prisma.refreshToken.findUnique({
       where: { token: refreshToken },
     });
 
-    if (!storedToken || storedToken.expiresAt < new Date()) {
+    if (!storedToken) {
       throw new Error('Невалидный refresh token');
+    }
+
+    // Проверяем срок действия
+    if (storedToken.expiresAt < new Date()) {
+      // Удаляем истекший токен
+      await prisma.refreshToken.delete({
+        where: { token: refreshToken },
+      });
+      throw new Error('Refresh token истек');
     }
 
     const user = await prisma.user.findUnique({
@@ -102,6 +129,10 @@ export class AuthService {
     });
 
     if (!user) {
+      // Удаляем токен несуществующего пользователя
+      await prisma.refreshToken.delete({
+        where: { token: refreshToken },
+      });
       throw new Error('Пользователь не найден');
     }
 

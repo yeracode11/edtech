@@ -345,6 +345,22 @@
     "payments": "Төлемдер",
     "access": "Қолжетімділікті басқару",
     "welcome": "Админ панеліне қош келдіңіз"
+  },
+  "courseDetail": {
+    "loading": "Курс жүктелуде...",
+    "notFound": "Курс табылмады",
+    "notExists": "Курс жоқ",
+    "backToCourses": "Курстарға оралу",
+    "returnToCourses": "Курстарға қайту",
+    "curriculum": "Курс бағдарламасы",
+    "lesson": "Сабақ",
+    "video": "Видео",
+    "text": "Мәтін",
+    "quiz": "Тест",
+    "courseInfo": "Курс туралы ақпарат",
+    "lessonsInCourse": "Курстағы сабақтар:",
+    "installment": "Рассрочка:",
+    "enroll": "Курсқа жазылу"
   }
 }
 

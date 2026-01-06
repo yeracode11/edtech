@@ -14,8 +14,11 @@ router.get('/user/:userId', authenticate, requireAdmin, (req, res) => enrollment
 // Получение записей курса
 router.get('/course/:courseId', authenticate, requireAdmin, (req, res) => enrollmentController.getEnrollmentsByCourse(req, res));
 
-// Создание записи (предоставление доступа)
+// Создание записи (предоставление доступа) админом
 router.post('/', authenticate, requireAdmin, (req, res) => enrollmentController.createEnrollment(req, res));
+
+// Самостоятельная запись текущего пользователя на курс
+router.post('/self', authenticate, (req, res) => enrollmentController.createSelfEnrollment(req, res));
 
 // Обновление записи (продление доступа)
 router.put('/:userId/:courseId', authenticate, requireAdmin, (req, res) => enrollmentController.updateEnrollment(req, res));

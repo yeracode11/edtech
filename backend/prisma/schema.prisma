@@ -69,17 +69,18 @@ model Course {
 }
 
 model Lesson {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   courseId    String
   title       String
   description String?
-  content     String?  @db.Text // Текстовое содержание урока
-  videoUrl    String?  // URL видео
+  content     String?    @db.Text // Текстовое содержание урока
+  videoUrl    String?    // URL видео
+  type        LessonType @default(VIDEO)
   order       Int
-  duration    Int?     // Длительность в минутах
-  isPublished Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  duration    Int?       // Длительность в минутах
+  isPublished Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   
   course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   videoLesson  VideoLesson?
@@ -87,6 +88,12 @@ model Lesson {
   progress     UserProgress[]
   
   @@map("lessons")
+}
+
+enum LessonType {
+  VIDEO
+  TEXT
+  QUIZ
 }
 
 model VideoLesson {

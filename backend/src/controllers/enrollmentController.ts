@@ -53,6 +53,31 @@ export class EnrollmentController {
     }
   }
 
+  // Создание записи для текущего авторизованного пользователя
+  async createSelfEnrollment(req: Request, res: Response) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Не авторизован' });
+      }
+
+      const { courseId, expiresAt } = req.body;
+
+      if (!courseId) {
+        return res.status(400).json({ error: 'courseId обязателен' });
+      }
+
+      const enrollment = await enrollmentService.createEnrollment({
+        userId: req.user.userId,
+        courseId,
+        expiresAt: expiresAt ? new Date(expiresAt) : undefined,
+      });
+
+      res.status(201).json({ enrollment });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
   async updateEnrollment(req: Request, res: Response) {
     try {
       const { userId, courseId } = req.params;

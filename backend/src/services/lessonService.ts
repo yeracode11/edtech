@@ -70,6 +70,7 @@ export class LessonService {
         title: data.title,
         description: data.description,
         courseId: data.courseId,
+        type: data.type,
         order: data.order,
         isPublished: data.isPublished || false,
         content: data.content,
@@ -88,6 +89,7 @@ export class LessonService {
     data: {
       title?: string;
       description?: string;
+      type?: 'VIDEO' | 'TEXT' | 'QUIZ';
       order?: number;
       isPublished?: boolean;
       content?: string;
